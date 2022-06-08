@@ -20,8 +20,8 @@ export function Confirmation(config: ConfirmationConfig) {
               type: "warning",
               beforeClose: (action: string, instance: any, done: any) => {
                 _instance = instance;
-                instance.confirmButtonLoading = true;
                 if (action === "confirm") {
+                  instance.confirmButtonLoading = true;
                   fn.call(this, instance, done, ...args);
                 } else {
                   done();
