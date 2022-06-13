@@ -8,7 +8,7 @@ interface ConfirmationConfig {
 }
 export function Confirmation(config: ConfirmationConfig) {
   return function (target: any, name: string, descriptor: PropertyDescriptor) {
-    const fn = target[name];
+    const fn = descriptor.value;
     let _instance: any = null;
     descriptor.value = function (...args: any[]) {
       Vue.prototype
@@ -41,7 +41,7 @@ export function Confirmation(config: ConfirmationConfig) {
 
 export function Validate(refName: string) {
   return function (target: any, name: string, descriptor: PropertyDescriptor) {
-    const fn = target[name]; // 被装饰的方法
+    const fn = descriptor.value; // 被装饰的方法
     descriptor.value = function (...args: any[]) {
       // 将触发校验的代码封装在此
       (this as any).$refs[refName].validate((valid: boolean) => {
@@ -58,7 +58,8 @@ export function Validate(refName: string) {
 
 export function CatchError() {
   return function (target: any, name: string, descriptor: PropertyDescriptor) {
-    const fn = target[name];
+    const fn = descriptor.value;
+    console.log(descriptor.value);
     descriptor.value = async function (...args: any[]) {
       try {
         await fn.call(this, ...args);

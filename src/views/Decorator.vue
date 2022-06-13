@@ -59,20 +59,20 @@ export default class DecoratorTest extends Vue {
     }, 2000);
   }
 
-  @CatchError()
   @Validate("ruleForm")
+  @CatchError()
   async submitForm() {
-    this.submitLoading = true;
+    // this.submitLoading = true;
     await this.handleTest();
-    this.submitLoading = false;
+    // this.submitLoading = false;
     this.$message.success("Submit Successfully!");
   }
 
   async handleTest() {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        resolve(true);
-        // reject(false);
+        // resolve(true);
+        reject(false);
       }, 1000);
     });
   }
